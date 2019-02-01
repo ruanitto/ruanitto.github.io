@@ -1,0 +1,224 @@
+div, div::before, div::after {
+  position: relative;
+  box-sizing: border-box;
+}
+
+
+/* CSS Transform Animations */
+div::before {
+  animation: squeeze var(--squeeze-duration) 0ms infinite alternate ease-in-out;
+  animation-play-state: var(--squeeze-state, paused);
+  transform-origin: left center;
+}
+div::after {
+  animation: go-with-squeeze var(--squeeze-duration) 0ms infinite alternate ease-in-out;
+  animation-play-state: var(--squeeze-state, paused);
+  will-change: transform;
+}
+div {
+  animation: go-against-squeeze var(--squeeze-duration) 0ms infinite alternate ease-in-out;
+  animation-play-state: var(--squeeze-state, paused);
+  will-change: transform;
+  transition: text-shadow 2000ms ease-in-out;
+}
+
+@keyframes squeeze {
+  80%, 0% {
+    transform: scaleX(1) translate3d(0,0,0);
+  }
+  40% {
+    transform: scaleX(.8) translate3d(0,0,0);
+  }
+  100%, 60%, 13% {
+    transform: scaleX(.3) translate3d(0,0,0);
+  }
+}
+@keyframes go-with-squeeze {
+  80%, 0% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(calc(var(--bellow-width) * -.2));
+  }
+  100%, 60%, 13% {
+    transform: translateX(calc(var(--bellow-width) * -.7));
+  }
+}
+@keyframes go-against-squeeze {
+  80%, 0% {
+    transform: translateX(calc(var(--bellow-width) * -.66));
+  }
+  40% {
+    transform: translateX(calc(var(--bellow-width) * -.56));
+  }
+  100%, 60%, 13% {
+    transform: translateX(calc(var(--bellow-width) * -.31));
+  }
+}
+
+
+
+
+
+
+/* Variables and div definitions */
+div {
+  --color1: hsl(196, 50%, 50%);
+  --color1alt: hsl(196, 50%, 33%);
+  --color1alta: hsl(196, 50%, 73%);
+  --color2: hsl(356, 70%, 50%);
+  --color2alt: hsl(356, 70%, 40%);
+  --color2alta: hsl(356, 70%, 80%);
+  --color3: hsl(4, 80%, 60%);
+  --color3alt: hsl(0, 80%, 50%);
+  
+  --height: 40vmin;
+  --bellow-y: 1vmin;
+  --bellow-y-less: 39vmin;
+  --bellow-width: 50vmin;
+  
+  --keyboard-base: linear-gradient(to right, var(--color3alt), var(--color3alt));
+  
+  --squeeze-duration: 13000ms;
+  --squeeze-state: running;
+}
+
+/*keyboard side*/
+div {
+  width: calc(var(--bellow-width) * .36);
+  height: calc(var(--height) + 5vmin);
+  border-radius: 4vmin 1vmin 1vmin 4vmin;
+  border: 0vmin solid var(--color2);
+ 
+  background:
+    var(--keyboard-base);
+  background-repeat: no-repeat;
+  
+  background-position:
+    0 0;
+  
+  background-size:
+    100%;
+  
+  box-shadow: inset 1vmin 0px 0 1vmin rgba(235,235,239,.2);
+  
+  transform: translateX(calc(var(--bellow-width) * -.66));
+  
+  color: rgba(0,0,0,0);
+  font-size: 4vmin;
+}
+
+/* bellows */
+div::before{
+  width: var(--bellow-width);
+  height: var(--height);
+  background:
+    linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, .02)),
+    repeating-linear-gradient(to right, var(--color1) 0vmin, var(--color1) 2.5vmin, var(--color1alt) 2.5vmin, var(--color1alt) 5vmin);
+  
+  clip-path: polygon(
+    0% 0%, 
+    2.5vmin var(--bellow-y), 
+    5vmin 0, 
+    7.5vmin var(--bellow-y), 
+    10vmin 0, 
+    12.5vmin var(--bellow-y), 
+    15vmin 0, 
+    17.5vmin var(--bellow-y), 
+    20vmin 0, 
+    22.5vmin var(--bellow-y), 
+    25vmin 0, 
+    27.5vmin var(--bellow-y), 
+    30vmin 0, 
+    32.5vmin var(--bellow-y), 
+    35vmin 0, 
+    37.5vmin var(--bellow-y), 
+    40vmin 0, 
+    42.5vmin var(--bellow-y), 
+    45vmin 0, 
+    47.5vmin var(--bellow-y), 
+    50vmin 0,
+    50vmin var(--height),
+    47.5vmin var(--bellow-y-less),
+    45vmin var(--height),
+    42.5vmin var(--bellow-y-less),
+    40vmin var(--height),
+    37.5vmin var(--bellow-y-less),
+    35vmin var(--height),
+    32.5vmin var(--bellow-y-less),
+    30vmin var(--height),
+    27.5vmin var(--bellow-y-less),
+    25vmin var(--height),
+    22.5vmin var(--bellow-y-less),
+    20vmin var(--height),
+    17.5vmin var(--bellow-y-less),
+    15vmin var(--height),
+    12.5vmin var(--bellow-y-less),
+    10vmin var(--height),
+    7.5vmin var(--bellow-y-less),
+    5vmin var(--height),
+    2.5vmin var(--bellow-y-less),
+    0vmin var(--height)
+  );
+  top: 2.5vmin;
+  left: 100%;
+  bottom: 0;
+}
+
+/* button side */
+div::after {
+  left: calc(100% + var(--bellow-width));
+  top: 0;
+  bottom: 0;
+  width: calc(var(--bellow-width) * .30);
+  border-radius: 1vmin 4vmin 4vmin 1vmin; 
+  
+  background:
+    linear-gradient(var(--color3alt), var(--color3alt));
+  background-repeat: no-repeat;
+    
+  box-shadow: inset -1vmin 0px 0px 1vmin rgba(235,235,239,.2);
+  
+}
+
+div::before, div::after {
+  content: '';
+  position: absolute;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  background: hsl(33, 80%, 9%);
+}
+form {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1vmin;
+  background: hsla(43, 0%, 0%, .4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: system-ui, --apple-system, 'Segoe UI', sans-serif;
+  color: #fafaff;
+}
