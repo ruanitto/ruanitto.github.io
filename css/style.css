@@ -186,21 +186,6 @@ div::before, div::after {
   position: absolute;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 body {
   display: flex;
   justify-content: center;
@@ -209,6 +194,7 @@ body {
   overflow: hidden;
   background: hsl(33, 80%, 9%);
 }
+
 form {
   position: absolute;
   left: 0;
